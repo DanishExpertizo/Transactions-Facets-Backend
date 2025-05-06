@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import User from '../models/user.model.js';
 import Transaction from '../models/transaction.model.js';
 
-export const transferMoney = async (req, res) => {
+export const transferMoney = async (req, res, next) => {
   const { senderId, receiverId, amount } = req.body;
 
   //Purpose: Starts a new session. All operations in a transaction must be tied to this session.
@@ -30,7 +30,7 @@ export const transferMoney = async (req, res) => {
 
     //Purpose: Commits (saves) all operations done in the transaction to the database.
     //If omitted: The changes made in the transaction are not persisted. The session remains open and pending.
-    await session.commitTransaction();
+    // await session.commitTransaction();
 
     res.status(200).json({ message: 'Transfer successful' });
   } catch (err) {
@@ -48,3 +48,8 @@ export const transferMoney = async (req, res) => {
 
   }
 };
+
+
+
+
+// throw new Error("Demo failure for rollback");
